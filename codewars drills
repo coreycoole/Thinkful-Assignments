@@ -1,0 +1,114 @@
+#order filler method
+
+stock = {
+    'football': 4,
+    'boardgame': 10,
+    'leggos': 1,
+    'doll': 5,
+}
+
+def fillable(stock, merch, n):
+
+        try:
+                return stock[merch] >= n
+
+        except KeyError:
+
+                return False
+
+print(fillable(stock, 'football', 3))
+
+
+
+#user contacts method
+
+data = [["Grae Drake", 98110], ["Bethany Kok"], ["Alex Nussbacher", 94101], ["Darrell Silver", 11201]]
+
+def user_contacts(data):
+
+        list = {}
+
+        for user in data:
+
+                name = user[0]
+
+                try:
+
+                        code = user[1]
+
+                except IndexError:
+
+                        code = None
+
+                list[name] = code
+
+        return list
+
+print(user_contacts(data))
+
+
+
+#other solution
+
+def user_contacts(data):
+    return {contact[0]: contact[1] if len(contact) > 1 else None
+            for contact in data}
+
+
+
+
+
+
+#multiple modes method
+
+def modes(data):
+
+        counter = {}
+        for value in data:
+            if value in counter:
+                counter[value] += 1
+            else:
+                counter[value] = 1
+
+        max_occurrence = max(counter.values())
+
+        min_occurrence = min(counter.values())
+        if max_occurrence == min_occurrence:
+            return []
+
+        result = []
+        for key in counter.keys():
+            if counter[key] == max_occurrence:
+                result.append(key)
+
+        return sorted(result)
+
+
+# print(modes("tomato"))
+print(modes([1, 2, 2, 3]))
+
+
+
+
+#other solutions
+
+from collections import Counter
+
+def modes(data):
+
+        c = Counter(data)
+        m = max(c.values())
+        if min(c.values()) == m:
+                return []
+        return [key for key in sorted(c) if c[key] == m]
+
+#
+#
+#
+
+from collections import Counter
+
+def modes(data):
+    cnts = Counter(data)
+    mx, mn = max(cnts.values()), min(cnts.values())
+    return sorted([k for k in cnts if cnts[k] == mx and cnts[k] != mn])
